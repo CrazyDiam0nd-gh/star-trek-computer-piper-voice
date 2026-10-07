@@ -1,4 +1,4 @@
-# Model card - Star Trek Computer (Piper voice)
+# Model card - Ship's Computer (Piper voice)
 
 > DRAFT. Items marked TODO must be settled before the first release.
 
