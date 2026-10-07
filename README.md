@@ -13,10 +13,25 @@ Samples: [01-working](samples/01-working.wav), [02-cleaning-complete](samples/02
 [03-warning](samples/03-warning.wav), [04-welcome](samples/04-welcome.wav),
 [05-insufficient-data](samples/05-insufficient-data.wav) (download to play).
 
-## Requirements
+## What is this, and what do I need?
 
-- Piper (the Home Assistant **Piper app**, a Wyoming Piper Docker container, or `piper-tts` on the command line).
-- To use the installer: Python 3.9 or newer. (Or skip the installer and download the files by hand, see below.)
+This is a **voice for Piper**, the free text-to-speech engine that Home Assistant uses to talk. It is just two files
+(a voice model and its config). You do not need Docker, a GPU or an account: install the two files into whatever Piper
+you already use.
+
+**Which section should I follow?**
+
+| You use... | Follow |
+|---|---|
+| Home Assistant OS / Supervised with the **Piper app** (most people) | [Home Assistant (Piper app)](#home-assistant-piper-app) |
+| Piper on the command line, in scripts or other software | [Piper command line](#piper-command-line) |
+| Home Assistant **Container/Core** (no apps), or Piper on a separate machine | [Docker (Wyoming)](#docker-wyoming-only-if-you-have-no-piper-app) |
+
+Not sure? If your Home Assistant has a **Settings -> Apps** (or *Add-ons*) page where you can install things like
+Piper, you want the first row.
+
+**Requirements:** one of the setups above. The optional installer needs Python 3.9 or newer; you can also download
+the files by hand.
 
 ## Install
 
@@ -74,17 +89,27 @@ pip install piper-tts
 echo "Working." | piper --model en_US-ships_computer-high.onnx --output_file out.wav
 ```
 
-## Docker (Wyoming)
+## Docker (Wyoming) - only if you have no Piper app
 
-Put the two files in a folder and mount it as the data directory of a Wyoming Piper server, then add the **Wyoming
-Protocol** integration in Home Assistant with that host and port `10200`:
+**Skip this section if you use the Home Assistant Piper app or the command line.** Docker is not needed to use the
+voice and the installer never uses it.
 
-```bash
-docker run -d --name piper-ships-computer -p 10200:10200 -v "$PWD/piper-data:/data" \
-  rhasspy/wyoming-piper --voice en_US-ships_computer-high
-```
+Why it exists: Home Assistant talks to Piper over a network protocol called Wyoming. The Piper app is simply a
+ready-made Wyoming Piper server. If your Home Assistant has no apps (Home Assistant Container or Core) or you want
+Piper on another machine, you run a Wyoming Piper server yourself, and Docker is the easy way to do that.
 
-This uses the standard `rhasspy/wyoming-piper` image; check its documentation for current options.
+1. Put the two voice files in a folder (here `piper-data`) and start the server with that folder mounted:
+   ```bash
+   mkdir -p piper-data && cp en_US-ships_computer-high.onnx* piper-data/
+   docker run -d --name piper-ships-computer -p 10200:10200 -v "$PWD/piper-data:/data" \
+     rhasspy/wyoming-piper --voice en_US-ships_computer-high
+   ```
+2. In Home Assistant: **Settings -> Devices & services -> Add integration -> Wyoming Protocol**, enter the IP of the
+   machine running Docker and port `10200`.
+3. Choose the voice in your assistant as described in the Home Assistant section.
+
+This uses the standard `rhasspy/wyoming-piper` image; check its documentation for current options. (Untested with
+this voice.)
 
 ## Optional: make the whole house feel like a starship (LCARS)
 
