@@ -161,4 +161,4 @@ names belong to their owners.
 
 ## License
 
-Scripts, tests and documentation: [MIT](LICENSE). The voice model has separate terms: [MODEL_CARD.md](MODEL_CARD.md).
+The MIT licence in [LICENSE](LICENSE) covers the scripts, tests and documentation in this repository only. The voice model (the GitHub Release files) has separate terms: [MODEL_CARD.md](MODEL_CARD.md).
