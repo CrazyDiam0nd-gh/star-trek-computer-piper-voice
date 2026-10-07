@@ -1,0 +1,20 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "star-trek-computer-piper-voice"
+version = "0.1.0"
+description = "Installer for an unofficial Star Trek ship's-computer style Piper TTS voice (Home Assistant, Wyoming, CLI)"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[project.scripts]
+stc-piper-voice = "stc_piper_voice.installer:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

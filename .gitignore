@@ -1,0 +1,17 @@
+__pycache__/
+*.egg-info/
+.venv/
+venv/
+build/
+dist/
+.pytest_cache/
+.env
+config.json
+token
+*.pid
+*.log
+# the voice model lives in GitHub Releases, never in git
+*.onnx
+*.onnx.json
+*.ckpt
+*.pth

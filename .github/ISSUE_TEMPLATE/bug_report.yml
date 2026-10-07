@@ -1,0 +1,44 @@
+name: Bug report
+description: The installer fails, the voice does not appear, or it sounds wrong
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting. The more fields you fill in, the faster this can be fixed.
+
+        **Never paste tokens or passwords.** Remove them from anything you share.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you expect, and what did you see instead?
+    validations:
+      required: true
+  - type: dropdown
+    id: where
+    attributes:
+      label: Where are you using the voice?
+      options: [Home Assistant Piper app, Wyoming Piper in Docker, Piper command line, Other]
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Voice release tag and installer version
+      description: The release you installed, and the output of `stc-piper-voice --version`
+      placeholder: v0.1.0, stc-piper-voice 0.1.0
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system (where you ran the installer)
+      options: [Linux, Windows, macOS, Other]
+  - type: input
+    id: ha
+    attributes:
+      label: Home Assistant and Piper app versions (if relevant)
+  - type: textarea
+    id: output
+    attributes:
+      label: Installer output or Piper/app logs
+      render: text

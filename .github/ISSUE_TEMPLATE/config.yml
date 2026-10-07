@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Piper itself (not this voice)
+    url: https://github.com/OHF-Voice/piper1-gpl
+    about: Problems with the Piper engine belong with the Piper project.
+  - name: Home Assistant itself
+    url: https://www.home-assistant.io/help/
+    about: Problems with Home Assistant, the Piper app or the Wyoming integration belong with Home Assistant.
