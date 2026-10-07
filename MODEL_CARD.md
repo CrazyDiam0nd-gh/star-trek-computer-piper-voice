@@ -3,8 +3,8 @@
 > DRAFT. Items marked TODO must be settled before the first release.
 
 ## Summary
-- **Type:** Piper (VITS) text-to-speech voice, one speaker, English (en-US), TODO: 22.05 kHz medium (V2) or high (V3).
-- **Format:** ONNX (`en_US-startrek_computer-medium.onnx` + `.onnx.json`), CPU inference.
+- **Type:** Piper (VITS) text-to-speech voice, one speaker, English (en-US), 22.05 kHz, "high" quality (larger model).
+- **Format:** ONNX (`en_US-ships_computer-high.onnx` + `.onnx.json`), CPU inference.
 - **Intended use:** personal / hobby home-automation announcements and fan projects.
 - **Not intended for:** impersonating a real person, deceptive audio, commercial use.
 
@@ -20,12 +20,12 @@ recordings of any person, and is not a clone of or endorsed by any real person o
    Voicebox ([jamiepine/voicebox](https://github.com/jamiepine/voicebox)) is reported as MIT; Chatterbox Turbo
    (Resemble AI) is MIT, with PerTh watermarking of its output. Neither is reported to restrict training on or
    redistributing models trained from generated audio. TODO: confirm in the LICENSE files and Hugging Face model card.
-3. A Piper model was fine-tuned on those clips with the Piper 1.x trainer (TODO: record base model and training time
-   for the release that ships).
+3. A Piper "high" model was fine-tuned on those clips with the Piper 1.x trainer (about 93 training epochs were
+   used for the released checkpoint; chosen by ear over later checkpoints). TODO: record the base voice it started from.
 4. Exported to ONNX with default speaking settings baked in.
 
 ## Recommended Piper app settings
-`length_scale 1.15`, `noise_scale 0.5`, `noise_w 0.5` (TODO: re-confirm for the shipped release).
+`length_scale 1.1`, `noise_scale 0.8`, `noise_w 0.8` (also baked into the voice's `.onnx.json`).
 
 ## Terms of use (TODO: confirm final wording)
 - Free to use and share, **not for profit**: do not sell it or use it in paid products/services; any website or

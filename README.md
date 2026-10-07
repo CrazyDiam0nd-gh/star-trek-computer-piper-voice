@@ -1,4 +1,4 @@
-# Star Trek Computer - Piper voice
+# Ship's Computer - Piper voice (Star Trek-inspired)
 
 An **unofficial, AI-generated** text-to-speech voice in the style of the Star Trek ship's computer, for
 [Piper](https://github.com/OHF-Voice/piper1-gpl) and Home Assistant. It runs on a CPU, so a Raspberry Pi or a Home
@@ -10,7 +10,8 @@ Assistant box is enough. This repo holds the installer and instructions; the voi
 > for the terms of use.
 
 Samples: [01-working](samples/01-working.wav), [02-cleaning-complete](samples/02-cleaning-complete.wav),
-[03-warning](samples/03-warning.wav), [04-welcome](samples/04-welcome.wav) (download to play).
+[03-warning](samples/03-warning.wav), [04-welcome](samples/04-welcome.wav),
+[05-insufficient-data](samples/05-insufficient-data.wav) (download to play).
 
 ## Requirements
 
@@ -19,7 +20,7 @@ Samples: [01-working](samples/01-working.wav), [02-cleaning-complete](samples/02
 
 ## Install
 
-The voice is two files that must stay together: `en_US-startrek_computer-medium.onnx` and `.onnx.json`.
+The voice is two files that must stay together: `en_US-ships_computer-high.onnx` and `.onnx.json`.
 
 **Option A - installer (checks the download against `SHA256SUMS`):**
 
@@ -47,7 +48,7 @@ stc-piper-voice install --dest ~/piper-voices
 2. **Restart the Piper app.**
 3. **Settings -> Devices & services -> Wyoming Protocol -> Piper -> three dots -> Reload.** HA caches the voice list.
 4. **Settings -> Voice assistants** -> your assistant -> **Text-to-speech: piper**, language **English (United States)**,
-   voice **startrek_computer**.
+   voice **ships_computer**.
 5. Or from an automation:
    ```yaml
    action: tts.speak
@@ -57,19 +58,20 @@ stc-piper-voice install --dest ~/piper-voices
      media_player_entity_id: media_player.your_speaker
      message: "Working. Cleaning program complete."
      options:
-       voice: en_US-startrek_computer-medium
+       voice: en_US-ships_computer-high
    ```
 
-**Speaking style.** The voice file bakes in its intended settings, but the Piper app applies its own
-*length_scale / noise_scale / noise_w* options to every voice and overrides them. If the voice sounds faster or
-more wobbly than the samples, open **Settings -> Apps -> Piper -> Configuration** and set the three values listed
-in [MODEL_CARD.md](MODEL_CARD.md), then Save and Restart. These apply to every voice in that Piper app.
+**Speaking style.** The voice file bakes in its intended settings (`length_scale 1.1`, `noise_scale 0.8`,
+`noise_w 0.8`), but the Piper app applies its own *length_scale / noise_scale / noise_w* options to every voice and
+overrides them (defaults 1.0 / 0.667 / 0.333). If the voice sounds different from the samples, open
+**Settings -> Apps -> Piper -> Configuration**, set those three values, then Save and Restart. They apply to every
+voice in that Piper app.
 
 ## Piper command line
 
 ```bash
 pip install piper-tts
-echo "Working." | piper --model en_US-startrek_computer-medium.onnx --output_file out.wav
+echo "Working." | piper --model en_US-ships_computer-high.onnx --output_file out.wav
 ```
 
 ## Docker (Wyoming)
@@ -78,11 +80,17 @@ Put the two files in a folder and mount it as the data directory of a Wyoming Pi
 Protocol** integration in Home Assistant with that host and port `10200`:
 
 ```bash
-docker run -d --name piper-startrek -p 10200:10200 -v "$PWD/piper-data:/data" \
-  rhasspy/wyoming-piper --voice en_US-startrek_computer-medium
+docker run -d --name piper-ships-computer -p 10200:10200 -v "$PWD/piper-data:/data" \
+  rhasspy/wyoming-piper --voice en_US-ships_computer-high
 ```
 
 This uses the standard `rhasspy/wyoming-piper` image; check its documentation for current options.
+
+## Optional: make the whole house feel like a starship (LCARS)
+
+The voice pairs well with an LCARS-style Home Assistant dashboard. I use the community LCARS theme for Home
+Assistant ([th3jesta/ha-lcars](https://github.com/th3jesta/ha-lcars); a separate project, not part of this one;
+LCARS is a design language from Star Trek). Neither is required.
 
 ## Optional: a ship's-computer assistant
 
@@ -97,7 +105,7 @@ Only entities you have exposed to Assist can be controlled.
 | HTTP 413 when uploading in the Piper app | Home Assistant caps app web uploads at 16 MiB. Put the files in `/share/piper` (Samba / SSH) instead. |
 | Voice not in the list | Restart the Piper app, then reload Wyoming -> Piper. Both file names must match exactly apart from the extension. |
 | Only some voices listed | Piper lists voices per language. Set the assistant's TTS language to English (United States). |
-| Faster or wobblier than the samples | The Piper app's own style options override the voice's. Set them as in MODEL_CARD.md. |
+| Different from the samples | The Piper app's own style options override the voice's. Set them to 1.1 / 0.8 / 0.8 (see above). |
 | `Checksum mismatch` from the installer | The download was corrupted or the release is wrong. Retry; if it persists, open an issue. |
 
 ## Reporting a problem

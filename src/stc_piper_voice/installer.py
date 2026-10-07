@@ -16,7 +16,7 @@ from pathlib import Path
 __version__ = "0.1.0"
 
 REPO = "CrazyDiam0nd-gh/star-trek-computer-piper-voice"
-VOICE = "en_US-startrek_computer-medium"
+VOICE = "en_US-ships_computer-high"
 FILES = [f"{VOICE}.onnx", f"{VOICE}.onnx.json"]
 SUMS = "SHA256SUMS"
 
