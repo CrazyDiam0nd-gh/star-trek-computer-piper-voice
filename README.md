@@ -122,10 +122,28 @@ Verified: the installer's download, checksum and local-copy logic (unit tests, L
 path against a real Home Assistant, Windows and macOS runs (CI will cover tests only), and the Docker command.
 The first release has not been published yet.
 
-## Credits
+## Credits & Acknowledgements
+
+### Star Trek-Inspired Computer Voice - [GreyFoxx74](https://github.com/GreyFoxx74)
+
+Special thanks to **[GreyFoxx74](https://github.com/GreyFoxx74)** for the time, effort and technical work involved in creating the Star Trek-inspired computer voice used in this project.
+
+GreyFoxx74 developed the voice model and generated the audio dataset through a multi-stage process:
+
+- **Voice sample creation:** Created multiple audio samples inspired by Star Trek starship computers using various audio tools and AI technologies.
+- **Audio preparation:** Selected the clearest samples and combined them into a single 27-second WAV file using Audacity, working within Voicebox's maximum sample duration.
+- **Voice model training:** Imported the prepared audio into Voicebox, supplied the corresponding transcription and generated a custom voice model.
+- **Voice generation testing:** Tested different synthesis engines and determined that `chatterbox_turbo` produced better results than `Qwen 1.7B` for this particular voice.
+- **Dataset generation:** Developed and ran a script that processed a source CSV containing approximately 3,800 unique sentences, automatically requesting audio generation through Voicebox and saving the resulting files locally.
+- **Further processing:** The completed collection of approximately 3,800 voice samples was then passed to **CrazyDiam0nd** for additional GPU-based processing into the final TTS implementation.
+
+This work provided the foundation for the project's custom Star Trek-inspired computer voice.
+
+**A huge thank you to GreyFoxx74 for their contribution, experimentation and dedication to bringing this voice to life.**
+
+### Other
 
 - [Piper](https://github.com/OHF-Voice/piper1-gpl) (engine and trainer; GPL-3.0).
-- GreyFoxx, who converted the source sentences with an AI voice tool. <!-- TODO: name the tool -->
 - No code was copied from other projects.
 
 ## Disclaimer

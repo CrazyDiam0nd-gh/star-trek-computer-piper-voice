@@ -14,8 +14,10 @@ recordings of any person, and is not a clone of or endorsed by any real person o
 
 ## How it was made
 1. 3,828 short sentences (public-domain prose plus smart-home style replies).
-2. GreyFoxx converted them to speech with an AI voice tool (TODO: name the tool and confirm its terms allow training
-   and redistributing a model from its output).
+2. GreyFoxx74 made a custom voice in Voicebox (from a 27-second prepared sample, using the `chatterbox_turbo` engine)
+   and generated about 3,800 clips with it (see the credits in the README).
+   TODO: confirm the licences/terms of Voicebox and Chatterbox Turbo allow training and redistributing a model from
+   their output, and state them here.
 3. A Piper model was fine-tuned on those clips with the Piper 1.x trainer (TODO: record base model and training time
    for the release that ships).
 4. Exported to ONNX with default speaking settings baked in.
