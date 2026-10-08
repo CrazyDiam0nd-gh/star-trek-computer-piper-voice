@@ -9,7 +9,7 @@ def make_release(tmp_path, corrupt=False):
     rel = tmp_path / "release"
     rel.mkdir()
     lines = []
-    for name in inst.FILES:
+    for name in inst.voice_files("high") + inst.voice_files("medium"):
         data = f"data for {name}".encode("utf-8")
         (rel / name).write_bytes(data)
         lines.append(f"{hashlib.sha256(data).hexdigest()}  {name}")
@@ -33,6 +33,13 @@ def test_install_local(tmp_path):
     rc = inst.main(["install", "--base-url", make_release(tmp_path), "--dest", str(dest)])
     assert rc == 0
     assert sorted(p.name for p in dest.iterdir()) == sorted(inst.FILES)
+
+
+def test_install_medium(tmp_path):
+    dest = tmp_path / "piper"
+    rc = inst.main(["install", "--model", "medium", "--base-url", make_release(tmp_path), "--dest", str(dest)])
+    assert rc == 0
+    assert sorted(p.name for p in dest.iterdir()) == sorted(inst.voice_files("medium"))
 
 
 def test_checksum_mismatch_installs_nothing(tmp_path, capsys):

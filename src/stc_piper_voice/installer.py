@@ -16,13 +16,20 @@ from pathlib import Path
 __version__ = "0.1.0"
 
 REPO = "CrazyDiam0nd-gh/star-trek-computer-piper-voice"
-VOICE = "en_US-ships_computer-high"
+VOICES = {"high": "en_US-ships_computer-high", "medium": "en_US-ships_computer-medium"}
+DEFAULT_QUALITY = "high"
+VOICE = VOICES[DEFAULT_QUALITY]
 FILES = [f"{VOICE}.onnx", f"{VOICE}.onnx.json"]
 SUMS = "SHA256SUMS"
 
 
 class InstallError(Exception):
     """A problem the user can fix; shown without a traceback."""
+
+
+def voice_files(quality=DEFAULT_QUALITY):
+    voice = VOICES[quality]
+    return [f"{voice}.onnx", f"{voice}.onnx.json"]
 
 
 def release_base_url(tag=None):
@@ -60,13 +67,13 @@ def download(url, dest):
         ) from e
 
 
-def fetch_verified(base_url, workdir):
+def fetch_verified(base_url, workdir, files=FILES):
     """Download SHA256SUMS and the voice files into workdir; return their paths after checking hashes."""
     sums_path = Path(workdir) / SUMS
     download(f"{base_url}/{SUMS}", sums_path)
     sums = parse_sums(sums_path.read_text(encoding="utf-8"))
     paths = []
-    for name in FILES:
+    for name in files:
         if name not in sums:
             raise InstallError(f"{name} is not listed in {SUMS}; the release looks incomplete.")
         path = Path(workdir) / name
@@ -97,15 +104,17 @@ def install_scp(paths, target):
 
 
 def run_install(args):
+    quality = args.model
+    files = voice_files(quality)
     base_url = (args.base_url or release_base_url(args.tag)).rstrip("/")
     if not args.dest and not args.scp:
         raise InstallError("Choose where to put the voice: --dest DIR (local) or --scp user@host:/share/piper (remote).")
     if args.dry_run:
-        print(f"Would download {', '.join(FILES)} from {base_url}")
+        print(f"Would download {', '.join(files)} from {base_url}")
         print(f"and verify them against {SUMS}, then copy to {args.dest or args.scp}")
         return 0
     with tempfile.TemporaryDirectory() as tmp:
-        paths = fetch_verified(base_url, tmp)
+        paths = fetch_verified(base_url, tmp, files)
         print("Checksums OK.")
         if args.dest:
             print(f"Installed to {install_local(paths, args.dest)}")
@@ -114,7 +123,7 @@ def run_install(args):
             print(f"Copied to {args.scp}")
     print(
         "Next: restart Piper. In Home Assistant also reload Settings > Devices & services > "
-        f"Wyoming Protocol > Piper, then pick the voice '{VOICE}'. See the README for the speaking settings."
+        f"Wyoming Protocol > Piper, then pick the voice '{VOICES[quality]}'. See the README for the speaking settings."
     )
     return 0
 
@@ -126,6 +135,8 @@ def build_parser():
     i = sub.add_parser("install", help="download, verify and install the voice")
     i.add_argument("--dest", help="local folder Piper reads voices from")
     i.add_argument("--scp", metavar="USER@HOST:PATH", help="copy to a remote folder with scp (e.g. root@homeassistant:/share/piper)")
+    i.add_argument("--model", choices=sorted(VOICES), default=DEFAULT_QUALITY,
+                   help="which voice: high (default, newer, larger) or medium (the original, smaller)")
     i.add_argument("--tag", help="release tag to install (default: latest)")
     i.add_argument("--base-url", help="override the download location (testing / mirrors)")
     i.add_argument("--dry-run", action="store_true", help="show what would happen without downloading")
