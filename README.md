@@ -9,11 +9,15 @@ Assistant box is enough. This repo holds the installer and instructions; the voi
 > trained on AI-generated speech. It is not a recording or a clone of any real person. See [MODEL_CARD.md](MODEL_CARD.md)
 > for the terms of use.
 
-Samples: [01-working](samples/01-working.wav), [02-cleaning-complete](samples/02-cleaning-complete.wav),
-[03-warning](samples/03-warning.wav), [04-welcome](samples/04-welcome.wav),
-[05-insufficient-data](samples/05-insufficient-data.wav) (download to play).
+Samples (download to play). The same five lines in each voice:
 
-Samples of the original medium voice: [samples/medium/](samples/medium) (download to play).
+| Line | high | medium |
+|---|---|---|
+| "Working. Diverting auxiliary power to the forward sensors." | [play](samples/01-working.wav) | [play](samples/medium/01-working.wav) |
+| "Scan complete. No life signs detected." | [play](samples/02-scan-complete.wav) | [play](samples/medium/02-scan-complete.wav) |
+| "Warning. Hull breach on deck seven." | [play](samples/03-warning.wav) | [play](samples/medium/03-warning.wav) |
+| "Welcome aboard. All systems are operating normally." | [play](samples/04-welcome.wav) | [play](samples/medium/04-welcome.wav) |
+| "Insufficient data. Please restate the query." | [play](samples/05-insufficient-data.wav) | [play](samples/medium/05-insufficient-data.wav) |
 
 ## What is this, and what do I need?
 
