@@ -49,10 +49,11 @@ the Piper model they were trained on top of.
 | Voice name | `en_US-ships_computer-high` | `en_US-ships_computer-medium` |
 | Trained on | Piper's public **Lessac high** checkpoint | Piper's public **Amy medium** checkpoint |
 | Size | ~114 MB | ~64 MB |
-| Character | Smoother flow, more natural rhythm | Lighter and faster; some people prefer its sound |
+| Character | Sounds more human, smoother flow | The first voice we made; lighter and faster; some people prefer its sound |
 | Baked-in settings | `length_scale 1.1`, `noise_scale 0.8`, `noise_w 0.8` | `length_scale 1.15`, `noise_scale 0.5`, `noise_w 0.5` |
 
-Not sure? Start with **high**. If you prefer the older sound, or you are on very limited hardware, use **medium**.
+Not sure? Listen to the samples above and pick the one you like. **Medium** was the first voice we made, and some
+people prefer its sound; **high** sounds more human. Medium is also the lighter choice on very limited hardware.
 You can install both: they have different names, so Home Assistant lists them side by side.
 
 ## Install
