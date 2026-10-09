@@ -144,6 +144,8 @@ The voice pairs well with an LCARS-style Home Assistant dashboard. I use the com
 Assistant ([th3jesta/ha-lcars](https://github.com/th3jesta/ha-lcars); a separate project, not part of this one;
 LCARS is a design language from Star Trek). Neither is required.
 
+<img width="1504" height="739" alt="image" src="https://github.com/user-attachments/assets/0c558797-5fbe-405e-9138-f2aac8365283" />
+
 ## Optional: a ship's-computer assistant
 
 See [`examples/openai-conversation-prompt.txt`](examples/openai-conversation-prompt.txt): instructions for Home
